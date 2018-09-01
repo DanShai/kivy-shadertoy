@@ -1,0 +1,103 @@
+#:import listdir os.listdir
+#:import GLShaderLexer pygments.lexers.graphics.GLShaderLexer
+
+<Shadertoy>:
+    orientation: 'vertical'
+    FBoxLayout:
+        bg_color: ['Blue','400']
+        size_hint: 1. , .6
+        FBoxLayout:
+            size_hint: 1. , 1.
+            ShaderWidget:
+                id: shader
+                iChannel0: texture0.texture
+                iChannel1: texture1.texture
+                iChannel2: texture2.texture
+                iChannel3: texture3.texture
+
+        FBoxLayout:
+            size_hint: 1. , 1.
+            padding: '10dp'
+            spacing: '10dp'
+            bg_color: ['Teal','400']
+            FBoxLayout:
+                bg_color: ['Brown','400']
+                orientation: 'vertical'
+                size_hint: 1, 1
+                #size_hint_y: None
+                #size: self.minimum_size
+                padding: '5dp'
+                spacing: '5dp'
+                TextureChoice:
+                    id: texture0
+                    on_source: shader.iChannel0_source = self.source
+                    on_texture: shader.iChannel0 = self.texture
+                    on_resolution: shader.update_resolutions(0,self.resolution)
+                    text: '0'
+                TextureChoice:
+                    id: texture1
+                    on_source: shader.iChannel1_source = self.source
+                    on_texture: shader.iChannel1 = self.texture
+                    on_resolution: shader.update_resolutions(1,self.resolution)
+                    text: '1'
+                TextureChoice:
+                    id: texture2
+                    on_source: shader.iChannel2_source = self.source
+                    on_texture: shader.iChannel2 = self.texture
+                    on_resolution: shader.update_resolutions(2,self.resolution)
+                    text: '2'
+                TextureChoice:
+                    id: texture3
+                    on_source: shader.iChannel3_source = self.source
+                    on_texture: shader.iChannel3 = self.texture
+                    on_resolution: shader.update_resolutions(3,self.resolution)
+                    text: '3'
+                FLabel:
+                    size_hint: 1,1
+                    padding: '4dp','4dp'
+                    spacing: '20dp'
+                    text: "fps:   " + shader.nFrames
+                    bg_color: ['Red','300']
+                    txt_color: ['Yellow','A400']
+
+
+    FBoxLayout:
+        padding: '10dp'
+        spacing: '10dp'
+        size_hint: 1,1
+        bg_color: ['Brown','500']
+        FBoxLayout:
+            orientation: 'vertical'
+            padding: '4dp'
+            spacing: '4dp'
+            bg_color: ['Teal','400']
+            FScrollCodeInput:
+                id: scode
+                style_name: 'monokai'
+                lexer: GLShaderLexer() 
+                text: str(self.rm_non_ascii(shader.shader_source))
+
+            FBoxLayout:
+                padding: '2dp'
+                spacing: '10dp'
+                orientation: "horizontal"
+                size_hint_y: None
+                height: '56dp'
+                bg_color: ['Teal','400']
+                FTogButton:
+                    size_hint: 1,1
+                    text: 'Play'
+                    icon: 'fa-play'
+                    on_state: shader.play( self, str(shader.rm_non_ascii (scode.ids.ti.text) ))
+                    #on_press: shader.shader_source = str(scode.ids.ti.text)
+                FSpinner:
+                    size_hint: 1,1
+                    id: file_spinner
+                    values: map(str, sorted( listdir('glsl') ))
+                    text: str(self.values[0]) 
+                    on_text: scode.text  = str(open('glsl/' + self.text, 'r').read() )
+                FButton:
+                    size_hint: 1,1
+                    icon: 'fa-save'
+                    text: 'Save'
+                    on_press: shader.launch_popup(file_spinner, scode.ids.ti )
