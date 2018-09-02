@@ -2,7 +2,7 @@
     source: img.source or ''
     texture: img.texture
     resolution: img.size
-    size_hint: 1,1
+    size_hint: 1,.9
     padding: '4dp'
     spacing: '20dp'
     #size_hint_y: None
@@ -12,22 +12,23 @@
     FLabel:
         text: root.text
         bg_color: ['Brown','400']
+        outline_color: ['Brown','400']
         txt_color: ['Yellow','A400']
         size_hint_x: None
         width: 24 #self.texture_size[0]
         size_hint_y: None
-        height: 64
+        height: 48
 
     Image:
         id: img
         source: 'textures/%s' % str(spinner.text)
         size_hint_y: None
-        height: 64
+        height: 48
         size_hint_x: None
-        width: 64
+        width: 48
     FSpinner:
         size_hint_y: None
-        height: 64
+        height: 48
         id: spinner
         values: map(str, sorted(listdir('textures')))
         text: str(self.values[0]) 

@@ -11,7 +11,7 @@ Based on old version (which doesnt work on new version of kivy) of [tshirtman](h
 -  Fps view.
 -  and other stuffs! 
   
-  ![Screenshot](img/shad.png)
+  ![Screenshot](img/sh.png)
 
   ## To do !
 - Buffers!!

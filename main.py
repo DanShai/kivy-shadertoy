@@ -3,6 +3,8 @@ Created on Dec 7, 2017
 
 @author: dan
 '''
+#import os
+#os.environ['KIVY_GL_BACKEND'] = 'sdl2'
 
 from kivy.app import App
 from kivy.core.window import Window
