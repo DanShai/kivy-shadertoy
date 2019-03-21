@@ -22,7 +22,7 @@ class ShaderApp(App):
         return Shadertoy()
         
     def warn(self, message):
-        print message
+        print (message)
 
 if __name__ == '__main__':
     app = ShaderApp()
