@@ -1,12 +1,15 @@
+'''
 
+
+@author: dan
+'''
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
 
 
-
 from kivy.properties import ListProperty, ObjectProperty, NumericProperty
 
-from fwidgets.utils import get_rgba_color
+from .utils import get_rgba_color
 
 Builder.load_string('''
 <CWidget>:
@@ -19,7 +22,7 @@ Builder.load_string('''
             size: self.radius * 2, self.radius * 2
             angle_start: self.start_angle
             angle_end: self.circle_progress * self.end_angle * self.creation_direction
-        
+
         Color:
             rgba: self.get_color(self.outline_color,self.balpha)
         Line:
@@ -32,11 +35,12 @@ Builder.load_string('''
             width: self.line_width
 
 
-            
+
 ''')
 
+
 class CWidget(Widget):
-    
+
     get_color = ObjectProperty(get_rgba_color)
     bg_color = ListProperty(['Orange', '300'])
     line_width = NumericProperty(2)
@@ -50,5 +54,3 @@ class CWidget(Widget):
 
     def __init__(self, **kwargs):
         super(CWidget, self).__init__(**kwargs)
-        
-

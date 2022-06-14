@@ -1,12 +1,7 @@
 <TextureChoice>:
-    source: img.source or ''
-    texture: img.texture
-    resolution: img.size
     size_hint: 1,.9
     padding: '4dp'
     spacing: '20dp'
-    #size_hint_y: None
-    #height: 64
     text: ''
     bg_color: ['Brown','400']
     FLabel:
@@ -21,7 +16,7 @@
 
     Image:
         id: img
-        source: 'textures/%s' % str(spinner.text)
+        source: root.source
         size_hint_y: None
         height: 48
         size_hint_x: None
@@ -30,5 +25,6 @@
         size_hint_y: None
         height: 48
         id: spinner
-        values: map(str, sorted(listdir('textures')))
+        values: list(map(str, sorted(listdir('textures'))))
         text: str(self.values[0]) 
+        on_text: root.change_source(*args)

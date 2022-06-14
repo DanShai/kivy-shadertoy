@@ -1,15 +1,16 @@
 '''
-Created on Jul 7, 2016
+
 
 @author: dan
 '''
 from kivy.uix.slider import Slider
 from kivy.properties import ListProperty, ObjectProperty, NumericProperty
 
-from fwidgets.utils import get_icon_char, get_rgba_color
-from fwidgets.f_scalable import ScalableBehaviour
+from .utils import get_icon_char, get_rgba_color
+from .f_scalable import ScalableBehaviour
 
 from kivy.lang import Builder
+
 
 def style_default(style_name):
     return None
@@ -18,9 +19,9 @@ def style_default(style_name):
 def icon_default(icon_name):
     return ''
 
+
 def ramp_default(ramp_group_tuple):
     return None
-
 
 
 Builder.load_string('''
@@ -54,8 +55,7 @@ Builder.load_string('''
 ''')
 
 
-
-class FSlider( Slider):
+class FSlider(Slider):
     get_color = ObjectProperty(get_rgba_color)
     color_tuple = ListProperty(['Blue', '400'])
     slider_color_tuple = ListProperty(['Orange', '300'])
@@ -63,7 +63,5 @@ class FSlider( Slider):
     slider_outline_color_tuple = ListProperty(['Red', '300'])
     sp_width = NumericProperty(5)
 
-    
     def __init__(self, **args):
         super(FSlider, self).__init__(**args)
-        

@@ -1,12 +1,8 @@
-'''
-Created on Jul 7, 2016
 
-@author: dan
-'''
-from __future__ import unicode_literals, print_function
-from kivy.utils import platform, get_color_from_hex
-from fwidgets.color_definitions import colors
-from fwidgets.fa_icon_definitions import fa_icons
+from kivy.utils import get_color_from_hex, platform
+
+from .color_definitions import colors
+from .fa_icon_definitions import fa_icons
 
 
 def get_icon_char(icon):
@@ -20,8 +16,8 @@ def get_icon_char(icon):
 
 
 def get_rgba_color(color_tuple, control_alpha=None):
-    
-    if len(color_tuple) != 2 or color_tuple is None :
+
+    if len(color_tuple) != 2 or color_tuple is None:
         color_tuple = ['Brown', '300']
     color, weight = color_tuple
     try:
@@ -33,4 +29,3 @@ def get_rgba_color(color_tuple, control_alpha=None):
     else:
         color[3] = control_alpha
         return color
-    

@@ -1,4 +1,5 @@
 '''
+Created on Jul 5, 2016
 
 @author: dan
 '''
@@ -9,17 +10,18 @@ from kivy.graphics import Rectangle, Color, Ellipse
 from .utils import get_icon_char, get_rgba_color
 from .f_scalable import ScalableBehaviour
 
+
 Builder.load_string('''
 
 
-<FTogButton>:
+<FCheck>:
 
     canvas.before:
         Color:
             rgba: self.get_color(self.n_color,self.balpha) if self.state == 'normal' else self.get_color(self.d_color,self.balpha)
         Rectangle:
-            pos: self.pos[0],self.pos[1]
-            size: self.width,self.height
+            pos: self.pos
+            size: self.size
         Color:
             rgba: self.get_color(self.outline_color,self.balpha)
         Line:
@@ -28,34 +30,36 @@ Builder.load_string('''
     Label:
         id: micon
         font_name:'fwidgets/data/font/fontawesome-webfont.ttf'
-        pos: root.pos[0]+root.width - self.width, root.pos[1]+root.height-self.height
-        #pos: root.pos[0]+root.width-20,root.pos[1]+root.height-20
-        size: 40,40
-        font_size: self.height * .75
-        text: root.get_icon(root.icon) if root.icon else ''
-        color: root.get_color(root.txt_color)
+        pos: root.pos
+        size: root.size
+        font_size: self.height * .8
+        text: root.get_icon(root.icon) if root.state == 'normal' else root.get_icon(root.dis_icon)
+        color: root.get_color(root.active_txt_color,.25) if root.state == 'normal' else root.get_color(root.active_txt_color,1)
 
 
 
 ''')
 
 
-class FTogButton(ToggleButton, ScalableBehaviour):
+class FCheck(ToggleButton, ScalableBehaviour):
+
+    balpha = NumericProperty(1)
+    outline_color = ListProperty(['Red', '300'])
+    sp_width = NumericProperty(1)
+    sp_round = NumericProperty(4)
 
     n_color = ListProperty(['Red', '300'])
-    d_color = ListProperty(['Orange', '600'])
-    icon = StringProperty('')
+    d_color = ListProperty(['Orange', '400'])
+    icon = StringProperty('fa-check')
+    dis_icon = StringProperty('fa-check')
     get_icon = ObjectProperty(get_icon_char)
     get_color = ObjectProperty(get_rgba_color)
-    balpha = NumericProperty(1)
     txt_color = ListProperty(['Orange', '100'])
-    outline_color = ListProperty(['Red', '400'])
-    sp_width = NumericProperty(1)
-    sp_round = NumericProperty(2)
+    active_txt_color = ListProperty(['Orange', '100'])
 
     def __init__(self, **kwargs):
 
-        super(FTogButton, self).__init__(**kwargs)
+        super(FCheck, self).__init__(**kwargs)
         self.get_color = get_rgba_color
         self.get_icon = get_icon_char
         self.background_color = (1, 1, 1, 0)
@@ -65,8 +69,10 @@ class FTogButton(ToggleButton, ScalableBehaviour):
         self.halign = 'center'
         self.valign = 'middle'
         self.color = self.get_color(self.txt_color, self.balpha)
-        self.size_hint = 1, 1
-        self.font_size = self.height * .75
+        self.size_hint = .5, 1
+        #self.size = [50,50]
+        self.font_size = self.initial_font_size
+        # self.text_size = self.size
 
     def on_txt_color(self, widget, color):
         self.color = self.get_color(color, self.balpha)

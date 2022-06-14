@@ -11,7 +11,6 @@ from GUI.texturechoice import TextureChoice
 Builder.load_file('./GUI/shadertoy.kv')
 
 
-class Shadertoy(FBoxLayout) :
+class Shadertoy(FBoxLayout):
     def __init__(self, **kwargs):
-        super(Shadertoy,self).__init__(**kwargs)
-    
+        super(Shadertoy, self).__init__(**kwargs)
